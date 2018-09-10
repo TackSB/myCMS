@@ -59,7 +59,6 @@ class Router
         // req( 'core/controllers/PagesController.php' );
         // $pages = new PagesController($elements);
         // $view = $pages->start();
-
         return $view; // Массив
       }
     }

@@ -7,18 +7,7 @@ function req($fileName)
   return require ROOT . '/' . $fileName;
 }
 
-// Подключение роутера, создание Экземпляра и вызов метода
-req( 'core/Router.php' );
-$router = new Router();
-$view = $router->start(); // Возвращает массив $view
-
-$view = $view['view'];
-
-// Проверка наличие View
-if( !isset($view) )
-{
-  $view = 'notFound';
-}
+req('frontController.php');
 
 ?>
 <!doctype html>
@@ -37,11 +26,9 @@ if( !isset($view) )
   <title>Tack</title>
 </head>
 <body>
-
+  
   <!-- BODY -->
-
-  <?php req( 'core/views/' . $view . '.php' ); ?>
-
+  <?php req( 'core/views/' . $view['view'] . '.php' ); ?>
   <!-- END -->
 
   <!-- Optional JavaScript -->
