@@ -6,7 +6,7 @@
 class LoginController
 {
 
-
+  // Не реализован
   public function changeAction ()
   {
     if ( isset( $_POST['doChange'] ) )
@@ -20,10 +20,11 @@ class LoginController
       // Сравниваем старый с текущем
       if ( $password == $passwordOld )
       {
-        $password = R::find( 'login', 1);
-        $password->password = 'qwe';
-        R::store($password);
-        echo 'ГУУД';
+        // echo '<pre>';
+        // $login = R::find( 'login', 1);
+        // $login->password = $passwordNew;
+        // R::store($login);
+        // echo 'ГУУД';
       }
       return $this->indexAction();
     }

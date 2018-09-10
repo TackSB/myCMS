@@ -1,7 +1,5 @@
 <?php
 
-req('core/controllers/LoginController.php');
-
 /**
  * 
  */
@@ -11,8 +9,6 @@ class AuthController
   // pass
   public function checkLoginAction ()
   {
-    // Создаем экземпляр LoginController
-    $controller = new LoginController();
     // Проверяем наличие сессии, если False вызываем LoginController
     if ( isset($_SESSION['login']) )
     {
