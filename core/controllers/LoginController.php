@@ -20,10 +20,10 @@ class LoginController
       // Сравниваем старый с текущем
       if ( $password == $passwordOld )
       {
-        // $password = R::find( 'login', 1);
-        // $password->password = 'qwe';
-        // R::store($password);
-        // echo 'ГУУД';
+        $password = R::find( 'login', 1);
+        $password->password = 'qwe';
+        R::store($password);
+        echo 'ГУУД';
       }
       return $this->indexAction();
     }
