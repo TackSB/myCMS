@@ -5,22 +5,23 @@
   Получает URI
   Делает поиск машрута
   Подключает класс и делает его экземпляр с последующим вызова метода
-
   Возвращает массив $view
 
 */
 class Router
 {
 
+  // Маршруты
   private $routes;
 
-  // Присваивает свойству routes маршруты
+  // Получаем маршруты
   public function __construct()
   {
-    $this->routes = req( 'core/routes.php' );
+    $this->routes = req( 'engine/routes.php' );
   }
 
-  public function getUri() // Получает URI, возвращает URI
+  // Получаем URI
+  public function getUri()
   {
     if( isset( $_SERVER['REQUEST_URI'] ) )
     {
@@ -29,14 +30,31 @@ class Router
     return $uri;
   }
 
-  public function start() // Возвращает view и данные
+  public function hasAdminLogin( $nameController, $nameAction, $uri )
+  {
+    /*
+      Если имя контроллера LoginController
+        то не выполняем проверку авторизации
+    */
+    if ( $nameController != 'LoginController' )
+    {
+      if ( $uri == 'admin' ){
+        if ( !isset($_SESSION['login']) )
+        {
+          $nameController = 'LoginController';
+          $nameAction = 'indexAction';
+        }
+      }
+    }
+  }
+
+  // Возвращает массив $view
+  public function start()
   {
     // Получение URI
     $uri = $this->getUri();
-
     // Получение маршрутов
     $routes = $this->routes;
-
     // Поиск маршрута
     foreach ( $routes as $pattern => $path ) {
       if ($uri == $pattern)
@@ -48,22 +66,23 @@ class Router
         $nameAction = array_shift($elements);
         $nameAction = $nameAction . 'Action'; // Имя метода
 
+        // Проверка авторизации
+        $uri = explode('/', $uri)[0];
+        $this->hasAdminLogin( $nameController, $nameAction, $uri );
+
         // Подключение контроллера
-        req( 'core/controllers/' . $nameController . '.php' ); 
+        req( 'engine/controllers/' . $nameController . '.php' ); 
 
-        // Создание экземпляра контроллера и метода
+        // Создание экземпляра контроллера и вызов метода
         $controller = new $nameController();
-        $view = $controller->$nameAction(); // Возвращает вью и данные
 
-        // Тестовая часть
-        // req( 'core/controllers/PagesController.php' );
-        // $pages = new PagesController($elements);
-        // $view = $pages->start();
-        return $view; // Массив
+        // Возвращает вью и данные
+        $view = $controller->$nameAction();
+
+        // Возвращаем массив $view
+        return $view;
       }
     }
-
-    // Подключение Контроллера и вызов метода
   }
 
 }
