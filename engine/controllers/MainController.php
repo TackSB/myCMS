@@ -5,11 +5,9 @@
  */
 class MainController
 {
-
-  public function indexAction ()
+  
+  public function index ()
   {
-    $view['view'] = 'main';
-    return $view;
+    echo 'Hola';
   }
-
 }

@@ -1,10 +1,12 @@
 <?php
 
-define( 'ROOT' , dirname( __FILE__ ) );
+define( 'ROOT' , dirname(__FILE__) );
 
-function req($fileName)
+function req ($filename)
 {
-  return require ROOT . '/' . $fileName;
+  return require ROOT . '/' . $filename ;
 }
 
-req('bootstrap.php');
+req ('engine/Cms.php');
+$cms = new Cms ();
+$cms->run();

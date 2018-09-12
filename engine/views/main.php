@@ -1,1 +1,0 @@
-<a href="http://localhost/admin/">Админ панель</a>
