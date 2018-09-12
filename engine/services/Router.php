@@ -52,7 +52,7 @@ class Router
         // Создаем экземпляр контроллера и вызываем его метод
         $controller = new $nameController ();
         $controller->$nameAction ( $param );
-        // echo '<hr>' . $nameController . ' : ' . $nameAction . ' : ' . $id;
+        
       }
     }
 
